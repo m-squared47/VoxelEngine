@@ -46,9 +46,9 @@
 GLfloat vertices[] =
 {
 	//	Coords				// Colors				// Texture Coords	 // Normals
-	-0.5f,  0.0f, -0.5f,    0.8f, 0.3f, 0.2f,       0.0f, 0.0f,          0.0f, 0.0f, -1.0f,    // Front LL       0
-	-0.5f,  1.0f, -0.5f,    0.8f, 0.3f, 0.2f,       0.0f, 1.0f,          0.0f, 0.0f, -1.0f,    // Front UL       1
-	 0.5f,  1.0f, -0.5f,    1.0f, 0.6f, 0.32f,      1.0f, 1.0f,          0.0f, 0.0f, -1.0f,    // Front UR       2
+	-0.5f,  0.0f, -0.5f,    0.8f, 0.3f,  0.2f ,     0.0f, 0.0f,          0.0f, 0.0f, -1.0f,    // Front LL       0
+	-0.5f,  1.0f, -0.5f,    0.8f, 0.3f,  0.2f ,     0.0f, 1.0f,          0.0f, 0.0f, -1.0f,    // Front UL       1
+	 0.5f,  1.0f, -0.5f,    1.0f, 0.6f,  0.32f,     1.0f, 1.0f,          0.0f, 0.0f, -1.0f,    // Front UR       2
 	 0.5f,  0.0f, -0.5f,    0.9f, 0.45f, 0.17f,     1.0f, 0.0f,          0.0f, 0.0f, -1.0f,    // Front LR       3
 
 	 0.5f,  0.0f, -0.5f,    0.8f, 0.3f, 0.2f,       0.0f, 0.0f,          1.0f, 0.0f, 0.0f,    // Right LL        4

@@ -1,23 +1,5 @@
 #include "Window.h"
 
-// Vertices coordinates
-// CUBE
-Vertex vertices[] =
-{
-					//	Coords						// Colors					// Normals				// Tex Coord
-	Vertex{glm::vec3(-1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
-	Vertex{glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)},
-	Vertex{glm::vec3(1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)},
-	Vertex{glm::vec3(1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f)}
-};
-
-// Indices for vertices order
-GLuint indices[] =
-{
-	0, 1, 2,
-	0, 2, 3
-};
-
 //LightCube
 Vertex lightVertices[] =
 { //     COORDINATES     //
@@ -106,7 +88,7 @@ int Window::CreateWindow() {
 	}
 
 	Texture textures[]{
-		Texture((shaderDir + "res\\textures\\planks.png").c_str(), "diffuse", 0, GL_RGBA, GL_UNSIGNED_BYTE),
+		Texture((shaderDir + "res\\textures\\asphalt.jpg").c_str(), "diffuse", 0, GL_RGB, GL_UNSIGNED_BYTE),
 		Texture((shaderDir + "res\\textures\\planksSpec.png").c_str(), "specular", 1, GL_RED, GL_UNSIGNED_BYTE)
 	};
 
@@ -115,10 +97,18 @@ int Window::CreateWindow() {
 	std::string fragmentShaderPath = shaderDir + "res\\shaders\\basic.frag";
 	Shader shader(vertexShaderPath.c_str(), fragmentShaderPath.c_str());
 
-	std::vector<Vertex> verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
-	std::vector<GLuint> ind(indices, indices + sizeof(indices) / sizeof(GLuint));
+	// creat cube object
 	std::vector<Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
-	Mesh floor(verts, ind, tex);
+	Cube cube(tex);
+
+	Cube* chunk[16][16][16];
+	for (int i = 0; i < 16; i++) {
+		for (int j = 0; j < 16; j++) {
+			for (int k = 0; k < 16; k++) {
+				chunk[i][j][k] = new Cube(tex);
+			}
+		}
+	}
 
 	// shader for light
 	std::string lightVertexShaderPath = shaderDir + "res\\shaders\\light.vert";
@@ -135,7 +125,7 @@ int Window::CreateWindow() {
 	glm::mat4 lightModel = glm::mat4(1.0f);
 	lightModel = glm::translate(lightModel, lightPos);
 
-	glm::vec3 objPos = glm::vec3(0.0f, 0.0f, 0.0f);			// floor
+	glm::vec3 objPos = glm::vec3(0.0f, 0.0f, 0.0f);			// cube
 	glm::mat4 objModel = glm::mat4(1.0f);
 	objModel = glm::translate(objModel, objPos);
 
@@ -149,6 +139,7 @@ int Window::CreateWindow() {
 
 	// enable depth buffer
 	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
 
 	// Camera object
 	Camera camera(windowAttrib.width, windowAttrib.height, glm::vec3(0.0f, 0.0f, 2.0f));
@@ -157,7 +148,7 @@ int Window::CreateWindow() {
 	while (!glfwWindowShouldClose(window))
 	{
 		
-		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);			// Specify the color of the background
+		glClearColor(0.1f, 0.09f, 0.24f, 1.0f);			// Specify the color of the background
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clean the back buffer and assign the new color to it
 		
 		camera.Inputs(window);								// Poll input events
@@ -168,7 +159,16 @@ int Window::CreateWindow() {
 			100.0f  										// farPlane
 		);
 
-		floor.Draw(shader, camera);							// draw objects
+		for (int i = 0; i < 16; i++) {
+			for (int j = 0; j < 16; j++) {
+				for (int k = 0; k < 16; k++) {
+					glm::vec3 chunkPos = glm::vec3(i, j, k);
+					chunk[i][j][k]->Draw(shader, camera, lightColor, lightPos,chunkPos);
+				}
+			}
+		}
+
+		//cube.Draw(shader, camera, lightColor, lightPos);	// draw objects
 		light.Draw(lightShader, camera);
 		
 		glfwSwapBuffers(window);							// Swap the back buffer with the front buffer

@@ -1,5 +1,6 @@
 #pragma once
 #include "mesh.h"
+#include "primitives/cube.h"
 
 struct {
 	unsigned int width;
