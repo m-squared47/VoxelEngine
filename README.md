@@ -4,7 +4,7 @@ This game engine will allow the creation of games using small cubes as pixels. E
 ## Development Tools and Files
 ### Tools
 - IDE: Visual Studio 2022
-- Language(s): c++, c
+- Language(s): c++, c, GLSL
 ### Files/Libraries used
 - GLFW: Window creation and input polling
 - GLEW: Utilize modern versions of OpenGL
