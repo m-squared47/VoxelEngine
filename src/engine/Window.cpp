@@ -58,6 +58,7 @@ GLuint indices[] =
 	20, 21, 22 	// Bottom Upper Tri
 };
 
+//LightCube
 GLfloat lightVertices[] =
 { //     COORDINATES     //
 	-0.1f, -0.1f,  0.1f,
