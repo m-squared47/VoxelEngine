@@ -6,5 +6,5 @@
 int main(void)
 {
     // create window
-    Window win = Window::Window(640, 640);
+    Window win = Window::Window(1280, 1280);
 }

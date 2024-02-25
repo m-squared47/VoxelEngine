@@ -2,73 +2,33 @@
 
 // Vertices coordinates
 // CUBE
-GLfloat vertices[] =
+Vertex vertices[] =
 {
-	//	Coords				// Colors				// Texture Coords	 // Normals
-	-0.5f,  0.0f, -0.5f,    0.8f, 0.3f, 0.2f,       0.0f, 0.0f,          0.0f, 0.0f, -1.0f,    // Front LL       0
-	-0.5f,  1.0f, -0.5f,    0.8f, 0.3f, 0.2f,       0.0f, 1.0f,          0.0f, 0.0f, -1.0f,    // Front UL       1
-	 0.5f,  1.0f, -0.5f,    1.0f, 0.6f, 0.32f,      1.0f, 1.0f,          0.0f, 0.0f, -1.0f,    // Front UR       2
-	 0.5f,  0.0f, -0.5f,    0.9f, 0.45f, 0.17f,     1.0f, 0.0f,          0.0f, 0.0f, -1.0f,    // Front LR       3
-
-	 0.5f,  0.0f, -0.5f,    0.8f, 0.3f, 0.2f,       0.0f, 0.0f,          1.0f, 0.0f, 0.0f,    // Right LL        4
-	 0.5f,  1.0f, -0.5f,    0.8f, 0.3f, 0.2f,       0.0f, 1.0f,          1.0f, 0.0f, 0.0f,    // Right UL        5
-	 0.5f,  1.0f,  0.5f,    1.0f, 0.6f, 0.32f,      1.0f, 1.0f,          1.0f, 0.0f, 0.0f,    // Right UR        6
-	 0.5f,  0.0f,  0.5f,    0.9f, 0.45f, 0.17f,     1.0f, 0.0f,          1.0f, 0.0f, 0.0f,    // Right LR        7
-
-	-0.5f,  0.0f,  0.5f,    0.8f, 0.3f, 0.2f,       1.0f, 0.0f,          0.0f, 0.0f, 1.0f,    // Back LL         8
-	-0.5f,  1.0f,  0.5f,    0.8f, 0.3f, 0.2f,       1.0f, 1.0f,          0.0f, 0.0f, 1.0f,    // Back UL         9
-	 0.5f,  1.0f,  0.5f,    1.0f, 0.6f, 0.32f,      0.0f, 1.0f,          0.0f, 0.0f, 1.0f,    // Back UR         10
-	 0.5f,  0.0f,  0.5f,    0.9f, 0.45f, 0.17f,     0.0f, 0.0f,          0.0f, 0.0f, 1.0f,    // Back LR         11
-																											     
-	-0.5f,  0.0f,  0.5f,    0.8f, 0.3f, 0.2f,       0.0f, 0.0f,         -1.0f, 0.0f, 0.0f,    // Left LL         12
-	-0.5f,  1.0f,  0.5f,    0.8f, 0.3f, 0.2f,       0.0f, 1.0f,         -1.0f, 0.0f, 0.0f,    // Left UL         13
-	-0.5f,  1.0f, -0.5f,    1.0f, 0.6f, 0.32f,      1.0f, 1.0f,         -1.0f, 0.0f, 0.0f,    // Left UR         14
-	-0.5f,  0.0f, -0.5f,    0.9f, 0.45f, 0.17f,     1.0f, 0.0f,         -1.0f, 0.0f, 0.0f,    // Left LR         15
-																											     
-	-0.5f,  1.0f, -0.5f,    0.8f, 0.3f, 0.2f,       0.0f, 0.0f,          0.0f, 1.0f, 0.0f,    // Top LL          16
-	-0.5f,  1.0f,  0.5f,    0.8f, 0.3f, 0.2f,       0.0f, 1.0f,          0.0f, 1.0f, 0.0f,    // Top UL          17
-	 0.5f,  1.0f,  0.5f,    1.0f, 0.6f, 0.32f,      1.0f, 1.0f,          0.0f, 1.0f, 0.0f,    // Top UR          18
-	 0.5f,  1.0f, -0.5f,    0.9f, 0.45f, 0.17f,     1.0f, 0.0f,          0.0f, 1.0f, 0.0f,    // Top LR          19
-																											     
-	-0.5f,  0.0f, -0.5f,    0.8f, 0.3f, 0.2f,       0.0f, 0.0f,          0.0f, -1.0f, 0.0f,   // Bottom LL       20
-	-0.5f,  0.0f,  0.5f,    0.8f, 0.3f, 0.2f,       0.0f, 1.0f,          0.0f, -1.0f, 0.0f,   // Bottom UL       21
-	 0.5f,  0.0f,  0.5f,    1.0f, 0.6f, 0.32f,      1.0f, 1.0f,          0.0f, -1.0f, 0.0f,   // Bottom UR       22
-	 0.5f,  0.0f, -0.5f,    0.9f, 0.45f, 0.17f,     1.0f, 0.0f,          0.0f, -1.0f, 0.0f    // Bottom LR       23
+					//	Coords						// Colors					// Normals				// Tex Coord
+	Vertex{glm::vec3(-1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
+	Vertex{glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)},
+	Vertex{glm::vec3(1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)},
+	Vertex{glm::vec3(1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f)}
 };
 
 // Indices for vertices order
 GLuint indices[] =
 {
-	0, 3, 2,	// Front Lower Tri
-	0, 1, 2,	// Front Upper Tri
-
-	4, 6, 7,	// Right Lower Tri
-	4, 5, 6,	// Right Upper Tri
-
-	8, 11, 10,	// Back Lower Tri
-	8, 9, 10,	// Back Upper Tri
-
-	12, 15, 14,	// Left Lower Tri
-	12, 13, 14,	// Left Upper Tri
-
-	16, 19, 18,	// Top Lower Tri
-	16, 17, 18,	// Top Upper Tri
-
-	20, 23, 22,	// Bottom Lower Tri
-	20, 21, 22 	// Bottom Upper Tri
+	0, 1, 2,
+	0, 2, 3
 };
 
 //LightCube
-GLfloat lightVertices[] =
+Vertex lightVertices[] =
 { //     COORDINATES     //
-	-0.1f, -0.1f,  0.1f,
-	-0.1f, -0.1f, -0.1f,
-	 0.1f, -0.1f, -0.1f,
-	 0.1f, -0.1f,  0.1f,
-	-0.1f,  0.1f,  0.1f,
-	-0.1f,  0.1f, -0.1f,
-	 0.1f,  0.1f, -0.1f,
-	 0.1f,  0.1f,  0.1f
+	Vertex{glm::vec3(-0.1f, -0.1f,  0.1f)},
+	Vertex{glm::vec3(-0.1f, -0.1f, -0.1f)},
+	Vertex{glm::vec3(0.1f, -0.1f, -0.1f)},
+	Vertex{glm::vec3(0.1f, -0.1f,  0.1f)},
+	Vertex{glm::vec3(-0.1f,  0.1f,  0.1f)},
+	Vertex{glm::vec3(-0.1f,  0.1f, -0.1f)},
+	Vertex{glm::vec3(0.1f,  0.1f, -0.1f)},
+	Vertex{glm::vec3(0.1f,  0.1f,  0.1f)}
 };
 
 GLuint lightIndices[] =
@@ -97,14 +57,12 @@ Window::Window(unsigned int w, unsigned int h) {
 
 /* Destructor */
 Window::~Window() {
-    // code
+	glfwDestroyWindow(window);
 }
 
 /* Create GL context and link with GLEW             */
 /* Creates a window and outputs working GL version  */
 int Window::CreateWindow() {
-
-	GLFWwindow* window;
 
 	/* Initialize the library */
 	if (!glfwInit())
@@ -120,22 +78,21 @@ int Window::CreateWindow() {
 
 	/* Create a windowed mode window and its OpenGL context */
 	window = glfwCreateWindow(windowAttrib.width, windowAttrib.height, "VoxelEngine", NULL, NULL);
-	if (!window)
-	{
+	if (!window) {
 		glfwTerminate();
 		return -1;
 	}
 
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
-
 	glfwSwapInterval(1);
 
+	/* Check if GL init -> GL init, display current version */
 	if (glewInit() != GLEW_OK)
 		std::cout << "Error glewInit" << std::endl;
-
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
+	// set window viewport
 	glViewport(0, 0, windowAttrib.width, windowAttrib.height);
 
 	// find path to shaders
@@ -148,67 +105,47 @@ int Window::CreateWindow() {
 		shaderDir.erase(pos, srcEngine.length());
 	}
 
+	Texture textures[]{
+		Texture((shaderDir + "res\\textures\\planks.png").c_str(), "diffuse", 0, GL_RGBA, GL_UNSIGNED_BYTE),
+		Texture((shaderDir + "res\\textures\\planksSpec.png").c_str(), "specular", 1, GL_RED, GL_UNSIGNED_BYTE)
+	};
+
 	// shader for cube
 	std::string vertexShaderPath = shaderDir + "res\\shaders\\basic.vert";
 	std::string fragmentShaderPath = shaderDir + "res\\shaders\\basic.frag";
-
 	Shader shader(vertexShaderPath.c_str(), fragmentShaderPath.c_str());
 
-	VertexArray vertexArray1;
-	vertexArray1.Bind();
-
-	VertexBuffer vertexBuffer1(vertices, sizeof(vertices));
-	IndexBuffer indexBuffer1(indices, sizeof(indices));
-
-	vertexArray1.LinkAttrib(vertexBuffer1, 0, 3, GL_FLOAT, 11 * sizeof(GLfloat), (void*)0);
-	vertexArray1.LinkAttrib(vertexBuffer1, 1, 3, GL_FLOAT, 11 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
-	vertexArray1.LinkAttrib(vertexBuffer1, 2, 2, GL_FLOAT, 11 * sizeof(GLfloat), (void*)(6 * sizeof(GLfloat)));
-	vertexArray1.LinkAttrib(vertexBuffer1, 3, 3, GL_FLOAT, 11 * sizeof(GLfloat), (void*)(8 * sizeof(GLfloat)));
-	vertexArray1.Unbind();
-	vertexBuffer1.Unbind();
-	indexBuffer1.Unbind();
+	std::vector<Vertex> verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
+	std::vector<GLuint> ind(indices, indices + sizeof(indices) / sizeof(GLuint));
+	std::vector<Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
+	Mesh floor(verts, ind, tex);
 
 	// shader for light
 	std::string lightVertexShaderPath = shaderDir + "res\\shaders\\light.vert";
 	std::string lightFragmentShaderPath = shaderDir + "res\\shaders\\light.frag";
-
 	Shader lightShader(lightVertexShaderPath.c_str(), lightFragmentShaderPath.c_str());
 
-	VertexArray lightVertexArray;
-	lightVertexArray.Bind();
+	std::vector<Vertex> lightVerts(lightVertices, lightVertices + sizeof(lightVertices) / sizeof(Vertex));
+	std::vector<GLuint> lightInd(lightIndices, lightIndices + sizeof(lightIndices) / sizeof(GLuint));
+	Mesh light(lightVerts, lightInd, tex);
 
-	VertexBuffer lightVertexBuffer(lightVertices, sizeof(lightVertices));
-	IndexBuffer lightIndexBuffer(lightIndices, sizeof(lightIndices));
-
-	lightVertexArray.LinkAttrib(lightVertexBuffer, 0, 3, GL_FLOAT, 3 * sizeof(GLfloat), (void*)0);
-
-	lightVertexArray.Unbind();
-	lightVertexBuffer.Unbind();
-	lightIndexBuffer.Unbind();
-
-	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 0.25f);
-
-	// model matrix
-	glm::vec3 lightPos = glm::vec3(1.0f, 1.5f, 1.0f);
+	// object models
+	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);	// light
+	glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
 	glm::mat4 lightModel = glm::mat4(1.0f);
 	lightModel = glm::translate(lightModel, lightPos);
 
-	// cube model matrix
-	glm::vec3 cubePos = glm::vec3(0.0f, 0.0f, 0.0f);
-	glm::mat4 cubeModel = glm::mat4(1.0f);
-	cubeModel = glm::translate(cubeModel, cubePos);
+	glm::vec3 objPos = glm::vec3(0.0f, 0.0f, 0.0f);			// floor
+	glm::mat4 objModel = glm::mat4(1.0f);
+	objModel = glm::translate(objModel, objPos);
 
 	lightShader.Activate();
 	glUniformMatrix4fv(glGetUniformLocation(lightShader.id, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
 	glUniform4f(glGetUniformLocation(lightShader.id, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
 	shader.Activate();
-	glUniformMatrix4fv(glGetUniformLocation(shader.id, "model"), 1, GL_FALSE, glm::value_ptr(cubeModel));
+	glUniformMatrix4fv(glGetUniformLocation(shader.id, "model"), 1, GL_FALSE, glm::value_ptr(objModel));
 	glUniform4f(glGetUniformLocation(shader.id, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
 	glUniform3f(glGetUniformLocation(shader.id, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
-
-	// Texture
-	Texture asphalt((shaderDir + "res\\textures\\asphalt.jpg").c_str(), GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-	asphalt.texUnit(shader, "tex0", 0);
 
 	// enable depth buffer
 	glEnable(GL_DEPTH_TEST);
@@ -231,39 +168,8 @@ int Window::CreateWindow() {
 			100.0f  										// farPlane
 		);
 
-		shader.Activate();									// Use Basic shader
-
-		glUniform3f(										// send camera position to vertex shader
-			glGetUniformLocation(shader.id, "camPos"),		// GL get uniform call
-			camera.Position.x, 								// Camera X-pos
-			camera.Position.y, 								// Camera Y-pos
-			camera.Position.z								// Camera Z-pos
-		);
-
-		camera.Matrix(										// Send camera matrix to vertex shader
-			shader,											// shader source,
-			"camMatrix"										// uniform
-		);
-
-		asphalt.Bind();										// Bind texture for OpenGL to use
-		vertexArray1.Bind();								// Bind the VA for OpenGL to use
-		
-		glDrawElements(										// Draw 
-			GL_TRIANGLES,									// primitives,  
-			sizeof(indices) / sizeof(int), 					// number of indices,
-			GL_UNSIGNED_INT, 								// datatype of indices,
-			0												// index of indices
-		);	
-
-		lightShader.Activate();								// Use Light shader
-		camera.Matrix(lightShader, "camMatrix");			// Export camera matrix to light shader
-		lightVertexArray.Bind();							// Bind light VA for OpenGL to use
-		glDrawElements(										// Draw ...
-			GL_TRIANGLES, 
-			sizeof(lightIndices) / sizeof(GLint), 
-			GL_UNSIGNED_INT, 
-			0
-		);
+		floor.Draw(shader, camera);							// draw objects
+		light.Draw(lightShader, camera);
 		
 		glfwSwapBuffers(window);							// Swap the back buffer with the front buffer
 		
@@ -273,14 +179,7 @@ int Window::CreateWindow() {
 
 
 	// Delete all the objects we've created
-	vertexArray1.Delete();
-	vertexBuffer1.Delete();
-	indexBuffer1.Delete();
-	asphalt.Delete();
 	shader.Delete();
-	lightVertexArray.Delete();
-	lightVertexBuffer.Delete();
-	lightIndexBuffer.Delete();
 	lightShader.Delete();
 	// Delete window before ending the program
 	glfwDestroyWindow(window);

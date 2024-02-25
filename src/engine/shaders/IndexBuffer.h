@@ -1,11 +1,12 @@
 #pragma once
 
 #include <GL/glew.h>
+#include <vector>
 
 class IndexBuffer {
 public:
 	GLuint id;
-	IndexBuffer(GLuint* indices, GLsizeiptr size);
+	IndexBuffer(std::vector<GLuint>& indices);
 
 	void Bind();
 	void Unbind();

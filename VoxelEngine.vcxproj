@@ -26,6 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\engine\camera.cpp" />
+    <ClCompile Include="src\engine\mesh.cpp" />
     <ClCompile Include="src\engine\shaders\IndexBuffer.cpp" />
     <ClCompile Include="src\engine\shaders\Shader.cpp" />
     <ClCompile Include="src\engine\shaders\Texture.cpp" />
@@ -38,12 +39,17 @@
   <ItemGroup>
     <ClInclude Include="src\engine\camera.h" />
     <ClInclude Include="src\engine\Index.h" />
+    <ClInclude Include="src\engine\core\macros.h" />
+    <ClInclude Include="src\engine\mesh.h" />
     <ClInclude Include="src\engine\shaders\IndexBuffer.h" />
     <ClInclude Include="src\engine\shaders\Shader.h" />
     <ClInclude Include="src\engine\shaders\Texture.h" />
     <ClInclude Include="src\engine\shaders\VertexArray.h" />
     <ClInclude Include="src\engine\shaders\VertexBuffer.h" />
     <ClInclude Include="src\engine\Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\textures\asphalt.jpg" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
