@@ -1,26 +1,11 @@
 #include "cube.h"
 
-Cube::Cube(std::vector<Texture>& textures) {
+Cube::Cube(std::vector<Texture>& textures, unsigned char ID) {
 	Cube::textures = textures;
+	Cube::ID = ID;
+
 	applyVertAndInd();
-	faceVectors();
-	
-	va.Bind();
 
-	// generate buffers
-	VertexBuffer vb(vertices);
-	IndexBuffer ib(indices);
-
-	// link vertex buffer attributes
-	va.LinkAttrib(vb, 0, 3, GL_FLOAT, sizeof(Vertex), (void*)0);
-	va.LinkAttrib(vb, 1, 3, GL_FLOAT, sizeof(Vertex), (void*)(3 * sizeof(GLfloat)));
-	va.LinkAttrib(vb, 2, 3, GL_FLOAT, sizeof(Vertex), (void*)(6 * sizeof(GLfloat)));
-	va.LinkAttrib(vb, 3, 2, GL_FLOAT, sizeof(Vertex), (void*)(9 * sizeof(GLfloat)));
-
-	// unbind to prevent modifying
-	va.Unbind();
-	vb.Unbind();
-	ib.Unbind();
 }
 
 Cube::~Cube() {
@@ -118,7 +103,8 @@ void Cube::faceVectors() {
 	GLuint index;
 	for (unsigned int a = 0; a < 6; a++) {
 
-		// add skipping condition here
+		// if face is blocked, don't render
+		if (renderFace.test(a)) { continue; }
 
 		std::vector<Vertex> faceVert = facesVert.at(a);	// vertices for one face
 		index = vertices.size();
@@ -139,6 +125,37 @@ void Cube::faceVectors() {
 
 	}
 	
+}
+
+unsigned char Cube::getID() const {
+	return ID;
+}
+
+void Cube::setNeighbors(std::bitset<8> bit) {
+	Cube::renderFace = bit;
+}
+
+void Cube::pushBuffers() {
+
+		faceVectors();
+
+	va.Bind();
+
+	// generate buffers
+	VertexBuffer vb(vertices);
+	IndexBuffer ib(indices);
+
+	// link vertex buffer attributes
+	va.LinkAttrib(vb, 0, 3, GL_FLOAT, sizeof(Vertex), (void*)0);
+	va.LinkAttrib(vb, 1, 3, GL_FLOAT, sizeof(Vertex), (void*)(3 * sizeof(GLfloat)));
+	va.LinkAttrib(vb, 2, 3, GL_FLOAT, sizeof(Vertex), (void*)(6 * sizeof(GLfloat)));
+	va.LinkAttrib(vb, 3, 2, GL_FLOAT, sizeof(Vertex), (void*)(9 * sizeof(GLfloat)));
+
+	// unbind to prevent modifying
+	va.Unbind();
+	vb.Unbind();
+	ib.Unbind();
+
 }
 
 void Cube::Update() {

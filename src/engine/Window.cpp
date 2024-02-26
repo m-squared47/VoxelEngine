@@ -99,16 +99,7 @@ int Window::CreateWindow() {
 
 	// creat cube object
 	std::vector<Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
-	Cube cube(tex);
-
-	Cube* chunk[16][16][16];
-	for (int i = 0; i < 16; i++) {
-		for (int j = 0; j < 16; j++) {
-			for (int k = 0; k < 16; k++) {
-				chunk[i][j][k] = new Cube(tex);
-			}
-		}
-	}
+	Chunk chunk(tex);
 
 	// shader for light
 	std::string lightVertexShaderPath = shaderDir + "res\\shaders\\light.vert";
@@ -159,38 +150,7 @@ int Window::CreateWindow() {
 			100.0f  										// farPlane
 		);
 
-		for (int i = 0; i < 16; i++) {
-			for (int j = 0; j < 16; j++) {
-				for (int k = 0; k < 16; k++) {
-					glm::vec3 chunkPos = glm::vec3(i, j, k);
-
-					// naive meshing
-					bool edge, encased = false;
-					edge = (i >= 15 || i <= 0) || (j >= 15 || j <= 0) || (k >= 15 || k <= 0);
-
-					if (!edge) {
-
-						// check x
-						if (!encased)
-							encased = (chunk[i + 1][j][k] != nullptr) || (chunk[i - 1][j][k] != nullptr);
-
-						// check y
-						if (!encased)
-						 encased = (chunk[i][j + 1][k] != nullptr) || (chunk[i][j - 1][k] != nullptr);
-
-						// check z
-						if (!encased)
-						 encased = (chunk[i][j][k + 1] != nullptr) || (chunk[i][j][k - 1] != nullptr);
-
-					}
-
-					if (!encased)
-						chunk[i][j][k]->Draw(shader, camera, lightColor, lightPos,chunkPos);
-				}
-			}
-		}
-
-		//cube.Draw(shader, camera, lightColor, lightPos);	// draw objects
+		chunk.Draw(shader, camera, lightColor, lightPos);	// draw objects
 		light.Draw(lightShader, camera);
 		
 		glfwSwapBuffers(window);							// Swap the back buffer with the front buffer
