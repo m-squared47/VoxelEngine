@@ -3,6 +3,7 @@
 Cube::Cube(std::vector<Texture>& textures) {
 	Cube::textures = textures;
 	applyVertAndInd();
+	faceVectors();
 	
 	va.Bind();
 
@@ -83,6 +84,61 @@ void Cube::applyVertAndInd() {
 
 void Cube::faceVectors() {
 	// TODO: face culling
+
+	// Split vertex and index vectors by face
+	for (unsigned int i = 0; i < 6; i++) {
+
+		std::vector<Vertex> vertOneFace;
+		std::vector<GLuint> indOneFace;
+
+		// 4 vertexes per face
+		unsigned int startingIndex = i * 4;
+		for (unsigned int j = 0; j < 4; j++) {
+			unsigned int pointer = startingIndex + j;
+
+			vertOneFace.push_back(vertices.at(pointer));
+		}
+
+		facesVert.push_back(vertOneFace);
+
+		// 6 index values per face
+		startingIndex = i * 6;
+		for (unsigned int j = 0; j < 6; j++) {
+			unsigned int pointer = startingIndex + j;
+
+			indOneFace.push_back((GLuint)indices.at(pointer));
+		}
+
+		facesInd.push_back(indOneFace);
+	}
+
+	// Push all vertices ( omit culled faces )
+	vertices.clear();
+	indices.clear();
+	GLuint index;
+	for (unsigned int a = 0; a < 6; a++) {
+
+		// add skipping condition here
+
+		std::vector<Vertex> faceVert = facesVert.at(a);	// vertices for one face
+		index = vertices.size();
+
+		// push vertex for one face
+		for (unsigned int b = 0; b < faceVert.size(); b++) {
+			vertices.push_back(faceVert.at(b));			// push single vertex
+		}
+
+		// push indexes for one face
+		indices.push_back(index);		// lower tri
+		indices.push_back(index + 3);
+		indices.push_back(index + 2);
+
+		indices.push_back(index);		// upper tri
+		indices.push_back(index + 1);
+		indices.push_back(index + 2);
+
+	}
+	
 }
 
 void Cube::Update() {
@@ -91,7 +147,7 @@ void Cube::Update() {
 
 void Cube::Draw(Shader& shader, Camera& camera, glm::vec4 lightColor, glm::vec3 lightPos, glm::vec3 chunkPos) {
 
-	glm::vec3 offset = glm::vec3(Cube::l * 3);
+	glm::vec3 offset = glm::vec3(Cube::l * 2);
 	glm::vec3 objPos = chunkPos * offset;			// cube
 	glm::mat4 objModel = glm::mat4(1.0f);
 	objModel = glm::translate(objModel, objPos);

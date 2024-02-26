@@ -163,7 +163,29 @@ int Window::CreateWindow() {
 			for (int j = 0; j < 16; j++) {
 				for (int k = 0; k < 16; k++) {
 					glm::vec3 chunkPos = glm::vec3(i, j, k);
-					chunk[i][j][k]->Draw(shader, camera, lightColor, lightPos,chunkPos);
+
+					// naive meshing
+					bool edge, encased = false;
+					edge = (i >= 15 || i <= 0) || (j >= 15 || j <= 0) || (k >= 15 || k <= 0);
+
+					if (!edge) {
+
+						// check x
+						if (!encased)
+							encased = (chunk[i + 1][j][k] != nullptr) || (chunk[i - 1][j][k] != nullptr);
+
+						// check y
+						if (!encased)
+						 encased = (chunk[i][j + 1][k] != nullptr) || (chunk[i][j - 1][k] != nullptr);
+
+						// check z
+						if (!encased)
+						 encased = (chunk[i][j][k + 1] != nullptr) || (chunk[i][j][k - 1] != nullptr);
+
+					}
+
+					if (!encased)
+						chunk[i][j][k]->Draw(shader, camera, lightColor, lightPos,chunkPos);
 				}
 			}
 		}

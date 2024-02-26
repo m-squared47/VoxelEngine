@@ -54,6 +54,9 @@
     <ClCompile Include="src\engine\primitives\cube.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\primitives\chunk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\shaders\IndexBuffer.h">
@@ -87,6 +90,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\engine\primitives\cube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\primitives\chunk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
