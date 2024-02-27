@@ -6,6 +6,7 @@
 class IndexBuffer {
 public:
 	GLuint id;
+	IndexBuffer();
 	IndexBuffer(std::vector<GLuint>& indices);
 
 	void Bind();

@@ -99,7 +99,7 @@ int Window::CreateWindow() {
 
 	// creat cube object
 	std::vector<Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
-	Chunk chunk(tex);
+	ChunkField terrain = ChunkField();
 
 	// shader for light
 	std::string lightVertexShaderPath = shaderDir + "res\\shaders\\light.vert";
@@ -116,17 +116,9 @@ int Window::CreateWindow() {
 	glm::mat4 lightModel = glm::mat4(1.0f);
 	lightModel = glm::translate(lightModel, lightPos);
 
-	glm::vec3 objPos = glm::vec3(0.0f, 0.0f, 0.0f);			// cube
-	glm::mat4 objModel = glm::mat4(1.0f);
-	objModel = glm::translate(objModel, objPos);
-
 	lightShader.Activate();
 	glUniformMatrix4fv(glGetUniformLocation(lightShader.id, "model"), 1, GL_FALSE, glm::value_ptr(lightModel));
 	glUniform4f(glGetUniformLocation(lightShader.id, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
-	shader.Activate();
-	glUniformMatrix4fv(glGetUniformLocation(shader.id, "model"), 1, GL_FALSE, glm::value_ptr(objModel));
-	glUniform4f(glGetUniformLocation(shader.id, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
-	glUniform3f(glGetUniformLocation(shader.id, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 
 	// enable depth buffer
 	glEnable(GL_DEPTH_TEST);
@@ -138,7 +130,7 @@ int Window::CreateWindow() {
 	// Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
-		
+
 		glClearColor(0.1f, 0.09f, 0.24f, 1.0f);			// Specify the color of the background
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clean the back buffer and assign the new color to it
 		
@@ -150,7 +142,7 @@ int Window::CreateWindow() {
 			100.0f  										// farPlane
 		);
 
-		chunk.Draw(shader, camera, lightColor, lightPos);	// draw objects
+		terrain.Draw(shader, camera, lightColor, lightPos);	// draw objects
 		light.Draw(lightShader, camera);
 		
 		glfwSwapBuffers(window);							// Swap the back buffer with the front buffer

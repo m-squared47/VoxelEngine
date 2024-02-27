@@ -1,14 +1,16 @@
 #pragma once
 
 #include "cube.h"
+#include <GLM/glm.hpp>
+#include <GLM/gtc/noise.hpp>
 
 class Chunk {
 public:
-	Chunk(std::vector<Texture> textures);
+	Chunk(std::vector<Texture> textures, glm::vec3 chunkPos);
 	~Chunk();
 
 	// draw all blocks
-	void Draw(Shader& shader, Camera& camera, glm::vec4 lightColor, glm::vec3 lightPos);
+	void Draw(Shader& shader, Camera& camera, glm::vec4 lightColor, glm::vec3 lightPos, glm::vec3 chunkPos);
 
 private:
 	unsigned char l = 0x10;	// chunk is 16 in legth
@@ -19,6 +21,6 @@ private:
 	std::vector<Texture> textures;	// block textures
 
 	// fills blocks array with cubes
-	void generateChunk();
+	void generateChunk(glm::vec3 chunkPos);
 
 };

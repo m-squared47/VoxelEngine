@@ -14,6 +14,7 @@ struct Vertex {
 class VertexBuffer {
 public:
 	GLuint id;
+	VertexBuffer();
 	VertexBuffer(std::vector<Vertex>& vertices);
 
 	void Bind();

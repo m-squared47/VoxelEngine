@@ -1,5 +1,6 @@
 #pragma once
 
+#include "core/macros.h"
 #include "shaders/Texture.h"
 #include "shaders/VertexArray.h"
 #include "shaders/IndexBuffer.h"

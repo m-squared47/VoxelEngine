@@ -1,9 +1,9 @@
 #include "chunk.h"
 
-Chunk::Chunk(std::vector<Texture> textures) {
+Chunk::Chunk(std::vector<Texture> textures, glm::vec3 chunkPos) {
 
 	Chunk::textures = textures;
-	generateChunk();
+	generateChunk(chunkPos);
 
 }
 
@@ -11,21 +11,48 @@ Chunk::~Chunk() {
 
 }
 
-void Chunk::generateChunk() {
+void Chunk::generateChunk(glm::vec3 chunkPos) {
+
+	// cast lwh bit values to int
+	int intL = static_cast<int>(l);
+	int intW = static_cast<int>(w);
+	int intH = static_cast<int>(h);
+
+	float terrainNoise;			// noise value
+	float res = 16;				// resolution of noise
+	float amplitude = 16;		// amplitude of noise
+
+	float chunkPosX = (chunkPos.x * 16);
+	float chunkPosY = (chunkPos.y * 16);
+	float chunkPosZ = (chunkPos.z * 16);
+	float seed = 6645342345;
 
 	// create cubes
-	for (int i = 0; i < (int)l; i++) {
-		for (int j = 0; j < (int)w; j++) {
-			for (int k = 0; k < (int)h; k++) {
-				blocks[i][j][k] = new Cube(textures, 0x01);
+	for (int i = 0; i < intL; i++) {
+		for (int j = 0; j < intW; j++) {
+			for (int k = 0; k < intH; k++) {
+				terrainNoise = glm::perlin(glm::vec3(
+														(i + chunkPosX) / res,	// chunk X position in perlin noise
+														(k + chunkPosZ) / res,	// chunk Z position in perlin noise
+														seed)					// terrain seed
+													) * amplitude;				// increase 0-1 value to fit 16 unit cube
+
+				if ((int)(round(terrainNoise)) - chunkPosY  + 16 <= j)
+					blocks[i][j][k] = new Cube(textures, 0x00);
+				else
+					blocks[i][j][k] = new Cube(textures, 0x01);
 			}
 		}
 	}
+	
+	std::cout << sizeof(blocks) << std::endl;
 
 	// set cube neigbors
-	for (int i = 0; i < (int)l; i++) {
-		for (int j = 0; j < (int)w; j++) {
-			for (int k = 0; k < (int)h; k++) {
+	for (int i = 0; i < intL; i++) {
+		for (int j = 0; j < intW; j++) {
+			for (int k = 0; k < intH; k++) {
+
+				Cube* currentCube = blocks[i][j][k];
 
 				std::bitset<8> bit{ "00000000" };
 
@@ -53,24 +80,36 @@ void Chunk::generateChunk() {
 					if (blocks[i][j - 1][k]->getID() == 0x01)
 						bit |= 0b100000;
 
-				std::cout << "Cube at [" << i << "][" << j << "][" << k << "] faces bit value : 0b" << bit << std::endl;
-
-				blocks[i][j][k]->setNeighbors(bit);
-
-				blocks[i][j][k]->pushBuffers();
+				currentCube->setNeighbors(bit);
+				currentCube->pushBuffers();
 			}
 		}
 	}
 
 }
 
-void Chunk::Draw(Shader& shader, Camera& camera, glm::vec4 lightColor, glm::vec3 lightPos) {
+void Chunk::Draw(Shader& shader, Camera& camera, glm::vec4 lightColor, glm::vec3 lightPos, glm::vec3 chunkPos) {
+
+	float chunkPosX = (chunkPos.x * 16);
+	float chunkPosY = (chunkPos.y * 16);
+	float chunkPosZ = (chunkPos.z * 16);
+
 
 	for (int i = 0; i < (int)l; i++) {
 		for (int j = 0; j < (int)w; j++) {
 			for (int k = 0; k < (int)h; k++) {
-				glm::vec3 chunkPos = glm::vec3(i, j, k);
-				blocks[i][j][k]->Draw(shader, camera, lightColor, lightPos, chunkPos);
+
+				// don't render air blocks
+				if (blocks[i][j][k]->getID() == 0x0) { continue; }
+				if (blocks[i][j][k]->getNeighbors() == std::bitset<8>{"00111111"}) { continue; }
+
+				glm::vec3 cubePos = glm::vec3(
+												i + chunkPosX, 
+												j + chunkPosY, 
+												k + chunkPosZ
+											);
+
+				blocks[i][j][k]->Draw(shader, camera, lightColor, lightPos, cubePos);
 			}
 		}
 	}

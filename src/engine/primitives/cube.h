@@ -23,6 +23,7 @@ public:
 	virtual ~Cube();
 
 	unsigned char getID() const;
+	std::bitset<8> getNeighbors() const;
 	void setNeighbors(std::bitset<8> bit);
 	void pushBuffers();
 	void Update();
@@ -40,7 +41,8 @@ private:
 	std::vector<std::vector<GLuint>> facesInd;		// indices by face
 	std::bitset<8> renderFace;						// For face culling. Tells if a face should be rendered
 
-	void applyVertAndInd();		// generates vertexes and indices
-	void faceVectors();			// splits the vectors and indexes with their respective face
+	void applyVertAndInd();							// generates vertexes and indices
+	void applyUniforms(Shader& shader, Camera& camera, glm::vec4 lightColor, glm::vec3 lightPos, glm::vec3 chunkPos);	// Send uniforms to the shader
+	void faceVectors();								// splits the vectors and indexes with their respective face
 	
 };

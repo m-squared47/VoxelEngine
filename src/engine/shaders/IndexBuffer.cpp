@@ -1,5 +1,9 @@
 #include "IndexBuffer.h"
 
+IndexBuffer::IndexBuffer() {
+
+}
+
 IndexBuffer::IndexBuffer(std::vector<GLuint>& indices) {
 	glGenBuffers(1, &id);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);

@@ -1,8 +1,6 @@
 #include "cube.h"
 
-Cube::Cube(std::vector<Texture>& textures, unsigned char ID) {
-	Cube::textures = textures;
-	Cube::ID = ID;
+Cube::Cube(std::vector<Texture>& textures, unsigned char ID) : textures(textures), ID(ID) {
 
 	applyVertAndInd();
 
@@ -81,7 +79,7 @@ void Cube::faceVectors() {
 		for (unsigned int j = 0; j < 4; j++) {
 			unsigned int pointer = startingIndex + j;
 
-			vertOneFace.push_back(vertices.at(pointer));
+			vertOneFace.emplace_back(vertices.at(pointer));
 		}
 
 		facesVert.push_back(vertOneFace);
@@ -91,10 +89,10 @@ void Cube::faceVectors() {
 		for (unsigned int j = 0; j < 6; j++) {
 			unsigned int pointer = startingIndex + j;
 
-			indOneFace.push_back((GLuint)indices.at(pointer));
+			indOneFace.emplace_back((GLuint)indices.at(pointer));
 		}
 
-		facesInd.push_back(indOneFace);
+		facesInd.emplace_back(indOneFace);
 	}
 
 	// Push all vertices ( omit culled faces )
@@ -107,7 +105,7 @@ void Cube::faceVectors() {
 		if (renderFace.test(a)) { continue; }
 
 		std::vector<Vertex> faceVert = facesVert.at(a);	// vertices for one face
-		index = vertices.size();
+		index = (unsigned int)vertices.size();
 
 		// push vertex for one face
 		for (unsigned int b = 0; b < faceVert.size(); b++) {
@@ -127,9 +125,8 @@ void Cube::faceVectors() {
 	
 }
 
-unsigned char Cube::getID() const {
-	return ID;
-}
+unsigned char Cube::getID() const { return ID; }
+std::bitset<8> Cube::getNeighbors() const { return renderFace; }
 
 void Cube::setNeighbors(std::bitset<8> bit) {
 	Cube::renderFace = bit;
@@ -137,7 +134,7 @@ void Cube::setNeighbors(std::bitset<8> bit) {
 
 void Cube::pushBuffers() {
 
-		faceVectors();
+	faceVectors();
 
 	va.Bind();
 
@@ -158,12 +155,7 @@ void Cube::pushBuffers() {
 
 }
 
-void Cube::Update() {
-	// TODO: update cube
-}
-
-void Cube::Draw(Shader& shader, Camera& camera, glm::vec4 lightColor, glm::vec3 lightPos, glm::vec3 chunkPos) {
-
+void Cube::applyUniforms(Shader& shader, Camera& camera, glm::vec4 lightColor, glm::vec3 lightPos, glm::vec3 chunkPos) {
 	glm::vec3 offset = glm::vec3(Cube::l * 2);
 	glm::vec3 objPos = chunkPos * offset;			// cube
 	glm::mat4 objModel = glm::mat4(1.0f);
@@ -194,6 +186,16 @@ void Cube::Draw(Shader& shader, Camera& camera, glm::vec4 lightColor, glm::vec3 
 
 	glUniform3f(glGetUniformLocation(shader.id, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
 	camera.Matrix(shader, "camMatrix");
+}
 
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+void Cube::Update() {
+	//faceVectors();
+	//pushBuffers();
+}
+
+void Cube::Draw(Shader& shader, Camera& camera, glm::vec4 lightColor, glm::vec3 lightPos, glm::vec3 chunkPos){
+
+	applyUniforms(shader, camera, lightColor, lightPos, chunkPos);
+	glDrawElements(GL_TRIANGLES, (unsigned int)indices.size(), GL_UNSIGNED_INT, 0);
+
 }

@@ -1,5 +1,9 @@
 #include "VertexBuffer.h"
 
+VertexBuffer::VertexBuffer() {
+
+}
+
 VertexBuffer::VertexBuffer(std::vector<Vertex>& vertices) {
 	glGenBuffers(1, &id);
 	glBindBuffer(GL_ARRAY_BUFFER, id);
