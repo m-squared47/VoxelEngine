@@ -1,6 +1,6 @@
 #pragma once
-#include "mesh.h"
-#include "primitives/chunkField.h"
+
+#include "application.h"
 #include "optick.h"
 
 struct {
@@ -11,9 +11,10 @@ struct {
 class Window {
 public:
 	Window(unsigned int w, unsigned int h);
-	virtual ~Window();
+	~Window();
 private:
+	Application app;
+
 	int CreateWindow();
-	void handleShaders();
 	GLFWwindow* window;
 };

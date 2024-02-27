@@ -25,6 +25,7 @@
     <None Include="res\shaders\light.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\engine\application.cpp" />
     <ClCompile Include="src\engine\camera.cpp" />
     <ClCompile Include="src\engine\mesh.cpp" />
     <ClCompile Include="src\engine\primitives\chunk.cpp" />
@@ -40,6 +41,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\application.h" />
     <ClInclude Include="src\engine\camera.h" />
     <ClInclude Include="src\engine\Index.h" />
     <ClInclude Include="src\engine\core\macros.h" />

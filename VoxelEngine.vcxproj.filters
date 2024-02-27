@@ -60,6 +60,9 @@
     <ClCompile Include="src\engine\primitives\chunkField.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\engine\application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\shaders\IndexBuffer.h">
@@ -99,6 +102,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\engine\primitives\chunkField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\engine\application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
