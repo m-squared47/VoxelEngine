@@ -14,9 +14,9 @@ public:
 
 private:
 
-	int l = 5;
-	int h = 2;
-	int w = 5;
+	int l = 7;
+	int h = 4;
+	int w = 7;
 
 	std::vector<std::vector<::std::vector<Chunk*>>> field;
 

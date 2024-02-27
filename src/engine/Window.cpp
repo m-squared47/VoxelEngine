@@ -125,7 +125,7 @@ int Window::CreateWindow() {
 	glDepthFunc(GL_LESS);
 
 	// Camera object
-	Camera camera(windowAttrib.width, windowAttrib.height, glm::vec3(0.0f, 0.0f, 2.0f));
+	Camera camera(windowAttrib.width, windowAttrib.height, glm::vec3(5.6f, 6.4f, 5.6f));
 
 	// Main while loop
 	while (!glfwWindowShouldClose(window))

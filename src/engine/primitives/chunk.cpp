@@ -1,5 +1,7 @@
 #include "chunk.h"
 
+#define TERRAIN_NOISE(i, k, x, z, seed, res, amplitude) glm::perlin(glm::vec3((i + x) / res, (k + z) / res, seed)) * amplitude			
+
 Chunk::Chunk(std::vector<Texture> textures, glm::vec3 chunkPos) {
 
 	Chunk::textures = textures;
@@ -19,33 +21,26 @@ void Chunk::generateChunk(glm::vec3 chunkPos) {
 	int intH = static_cast<int>(h);
 
 	float terrainNoise;			// noise value
-	float res = 16;				// resolution of noise
-	float amplitude = 16;		// amplitude of noise
+	float res = 32;				// resolution of noise
+	float amplitude = 32;		// amplitude of noise
 
-	float chunkPosX = (chunkPos.x * 16);
-	float chunkPosY = (chunkPos.y * 16);
-	float chunkPosZ = (chunkPos.z * 16);
+	float chunkPosX = (chunkPos.x * intL);
+	float chunkPosY = (chunkPos.y * intW);
+	float chunkPosZ = (chunkPos.z * intH);
 	float seed = 6645342345;
 
 	// create cubes
 	for (int i = 0; i < intL; i++) {
 		for (int j = 0; j < intW; j++) {
 			for (int k = 0; k < intH; k++) {
-				terrainNoise = glm::perlin(glm::vec3(
-														(i + chunkPosX) / res,	// chunk X position in perlin noise
-														(k + chunkPosZ) / res,	// chunk Z position in perlin noise
-														seed)					// terrain seed
-													) * amplitude;				// increase 0-1 value to fit 16 unit cube
 
-				if ((int)(round(terrainNoise)) - chunkPosY  + 16 <= j)
+				if ((int)(TERRAIN_NOISE(i, k, chunkPosX, chunkPosZ, seed, res, amplitude) - chunkPosY + amplitude) <= j)
 					blocks[i][j][k] = new Cube(textures, 0x00);
 				else
 					blocks[i][j][k] = new Cube(textures, 0x01);
 			}
 		}
 	}
-	
-	std::cout << sizeof(blocks) << std::endl;
 
 	// set cube neigbors
 	for (int i = 0; i < intL; i++) {
@@ -57,28 +52,52 @@ void Chunk::generateChunk(glm::vec3 chunkPos) {
 				std::bitset<8> bit{ "00000000" };
 
 				if (k != 0)
-					if (blocks[i][j][k - 1]->getID() == 0x01)
+				{
+					if (blocks[i][j][k - 1]->getID() == 0x01) 
 						bit |= 0b000001;
+				}
+				else if ((int)(TERRAIN_NOISE(i, k - 1, chunkPosX, chunkPosZ, seed, res, amplitude) - chunkPosY + amplitude) > j)	// brute force face culling (REPLACE THIS FOR CHUNK OBSERVING)
+					bit |= 0b000001;
 
 				if (i != (int)l - 1)
+				{
 					if (blocks[i + 1][j][k]->getID() == 0x01)
 						bit |= 0b000010;
+				}
+				else if ((int)(TERRAIN_NOISE(i + 1, k, chunkPosX, chunkPosZ, seed, res, amplitude) - chunkPosY + amplitude) > j)
+					bit |= 0b000010;
 
 				if (k != (int)h - 1)
+				{
 					if (blocks[i][j][k + 1]->getID() == 0x01)
 						bit |= 0b000100;
+				}
+				else if ((int)(TERRAIN_NOISE(i, k + 1, chunkPosX, chunkPosZ, seed, res, amplitude) - chunkPosY + amplitude) > j)
+					bit |= 0b000100;
 
 				if (i != 0)
+				{
 					if (blocks[i - 1][j][k]->getID() == 0x01)
 						bit |= 0b001000;
+				}
+				else if ((int)(TERRAIN_NOISE(i - 1, k, chunkPosX, chunkPosZ, seed, res, amplitude) - chunkPosY + amplitude) > j)
+					bit |= 0b001000;
 
 				if (j != (int)w - 1)
+				{
 					if (blocks[i][j + 1][k]->getID() == 0x01)
 						bit |= 0b010000;
+				}
+				else if ((int)(TERRAIN_NOISE(i, k, chunkPosX, chunkPosZ, seed, res, amplitude) - ((chunkPos.y + 1) * intH) + amplitude) > 0)
+					bit |= 0b010000;
 
 				if (j != 0)
+				{
 					if (blocks[i][j - 1][k]->getID() == 0x01)
 						bit |= 0b100000;
+				}
+				else if ((int)(TERRAIN_NOISE(i, k, chunkPosX, chunkPosZ, seed, res, amplitude) - chunkPosY + amplitude) > j)
+					bit |= 0b100000;
 
 				currentCube->setNeighbors(bit);
 				currentCube->pushBuffers();

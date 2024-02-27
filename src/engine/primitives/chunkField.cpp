@@ -34,7 +34,6 @@ void ChunkField::generateChunks() {
 		for (int j = 0; j < ChunkField::h; j++) {
 			for (int k = 0; k < ChunkField::w; k++) {
 				chunks.emplace_back(new Chunk(tex, glm::vec3(i, j, k)));	// row of chunks
-				std::cout << "Generating chunk [" << i << "][" << j << "][" << k << "]" << std::endl;
 			}
 
 			chunkPlane.push_back(chunks);	// plane of chunks
