@@ -13,32 +13,32 @@ Cube::~Cube() {
 void Cube::applyVertAndInd() {
 	Cube::vertices =
 	{	//				|Vertex Coords|				|Colors|					|Normals|				|Tex Coords|
-		Vertex{glm::vec3( l, -h, -w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f, 0.0f,-1.0f), glm::vec2(0.0f, 0.0f)},
+		Vertex{glm::vec3( l, -h, -w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f, 0.0f,-1.0f), glm::vec2(0.0f, 0.0f)},	//Front
 		Vertex{glm::vec3(-l, -h, -w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f, 0.0f,-1.0f), glm::vec2(0.0f, 1.0f)},
 		Vertex{glm::vec3(-l,  h, -w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f, 0.0f,-1.0f), glm::vec2(1.0f, 1.0f)},
 		Vertex{glm::vec3( l,  h, -w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f, 0.0f,-1.0f), glm::vec2(1.0f, 0.0f)},
 
-		Vertex{glm::vec3( l, -h,  w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 1.0f, 0.0f, 0.0f), glm::vec2(0.0f, 0.0f)},
+		Vertex{glm::vec3( l, -h,  w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 1.0f, 0.0f, 0.0f), glm::vec2(0.0f, 0.0f)},	// Right
 		Vertex{glm::vec3( l, -h, -w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 1.0f, 0.0f, 0.0f), glm::vec2(0.0f, 1.0f)},
 		Vertex{glm::vec3( l,  h, -w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 1.0f, 0.0f, 0.0f), glm::vec2(1.0f, 1.0f)},
 		Vertex{glm::vec3( l,  h,  w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 1.0f, 0.0f, 0.0f), glm::vec2(1.0f, 0.0f)},
 
-		Vertex{glm::vec3(-l, -h,  w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
+		Vertex{glm::vec3(-l, -h,  w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)},	// Back
 		Vertex{glm::vec3( l, -h,  w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f)},
 		Vertex{glm::vec3( l,  h,  w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f)},
 		Vertex{glm::vec3(-l,  h,  w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f)},
 
-		Vertex{glm::vec3(-l, -h, -w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec2(0.0f, 0.0f)},
+		Vertex{glm::vec3(-l, -h, -w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec2(0.0f, 0.0f)},	// Left
 		Vertex{glm::vec3(-l, -h,  w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec2(0.0f, 1.0f)},
 		Vertex{glm::vec3(-l,  h,  w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec2(1.0f, 1.0f)},
 		Vertex{glm::vec3(-l,  h, -w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec2(1.0f, 0.0f)},
 
-		Vertex{glm::vec3( l,  h, -w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f, 1.0f, 0.0f), glm::vec2(0.0f, 0.0f)},
+		Vertex{glm::vec3( l,  h, -w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f, 1.0f, 0.0f), glm::vec2(0.0f, 0.0f)},	// Top
 		Vertex{glm::vec3(-l,  h, -w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f, 1.0f, 0.0f), glm::vec2(0.0f, 1.0f)},
 		Vertex{glm::vec3(-l,  h,  w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f, 1.0f, 0.0f), glm::vec2(1.0f, 1.0f)},
 		Vertex{glm::vec3( l,  h,  w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f, 1.0f, 0.0f), glm::vec2(1.0f, 0.0f)},
 
-		Vertex{glm::vec3(-l, -h, -w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f,-1.0f, 0.0f), glm::vec2(0.0f, 0.0f)},
+		Vertex{glm::vec3(-l, -h, -w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f,-1.0f, 0.0f), glm::vec2(0.0f, 0.0f)},	// Bottom
 		Vertex{glm::vec3( l, -h, -w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f,-1.0f, 0.0f), glm::vec2(0.0f, 1.0f)},
 		Vertex{glm::vec3( l, -h,  w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f,-1.0f, 0.0f), glm::vec2(1.0f, 1.0f)},
 		Vertex{glm::vec3(-l, -h,  w),  glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3( 0.0f,-1.0f, 0.0f), glm::vec2(1.0f, 0.0f)}
@@ -104,7 +104,8 @@ void Cube::faceVectors() {
 		// if face is blocked, don't render
 		if (renderFace.test(a)) { continue; }
 
-		std::vector<Vertex> faceVert = facesVert.at(a);	// vertices for one face
+		// vertices for one face
+		std::vector<Vertex> faceVert = facesVert.at(a);	
 		index = (unsigned int)vertices.size();
 
 		// push vertex for one face
@@ -163,6 +164,7 @@ void Cube::applyUniforms(Shader& shader, Camera& camera, glm::vec4 lightColor, g
 
 	shader.Activate();
 
+	// apply model uniforms
 	glUniformMatrix4fv(glGetUniformLocation(shader.id, "model"), 1, GL_FALSE, glm::value_ptr(objModel));
 	glUniform4f(glGetUniformLocation(shader.id, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
 	glUniform3f(glGetUniformLocation(shader.id, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
@@ -172,6 +174,7 @@ void Cube::applyUniforms(Shader& shader, Camera& camera, glm::vec4 lightColor, g
 	unsigned int numDiffuse = 0;
 	unsigned int numSpecular = 0;
 
+	// apply texture uniforms
 	for (unsigned int i = 0; i < textures.size(); i++) {
 		std::string num;
 		std::string type = textures[i].type;
@@ -184,6 +187,7 @@ void Cube::applyUniforms(Shader& shader, Camera& camera, glm::vec4 lightColor, g
 		textures[i].Bind();
 	}
 
+	// apply camera uniforms
 	glUniform3f(glGetUniformLocation(shader.id, "camPos"), camera.Position.x, camera.Position.y, camera.Position.z);
 	camera.Matrix(shader, "camMatrix");
 }

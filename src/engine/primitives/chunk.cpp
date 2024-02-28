@@ -27,7 +27,7 @@ void Chunk::generateChunk(glm::vec3 chunkPos) {
 	float chunkPosX = (chunkPos.x * intL);
 	float chunkPosY = (chunkPos.y * intW);
 	float chunkPosZ = (chunkPos.z * intH);
-	float seed = 6645342345;
+	float seed = 47;
 
 	// create cubes
 	for (int i = 0; i < intL; i++) {
@@ -56,7 +56,7 @@ void Chunk::generateChunk(glm::vec3 chunkPos) {
 					if (blocks[i][j][k - 1]->getID() == 0x01) 
 						bit |= 0b000001;
 				}
-				else if ((int)(TERRAIN_NOISE(i, k - 1, chunkPosX, chunkPosZ, seed, res, amplitude) - chunkPosY + amplitude) > j)	// brute force face culling (REPLACE THIS FOR CHUNK OBSERVING)
+				else if ((int)(TERRAIN_NOISE(i, k - 1, chunkPosX, chunkPosZ, seed, res, amplitude) - chunkPosY + amplitude) > j)	// brute force face culling (REPLACE THIS FOR OBSERVING NEIGHBOR CHUNKS)
 					bit |= 0b000001;
 
 				if (i != (int)l - 1)

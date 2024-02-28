@@ -131,13 +131,26 @@ int Window::CreateWindow() {
 	while (!glfwWindowShouldClose(window))
 	{
 
+		int winW, winH;
+		glfwGetWindowSize(window, &winW, &winH);
+
+		if (windowAttrib.width != winW || windowAttrib.height != winH) {
+
+			windowAttrib.width = winW;
+			windowAttrib.height = winH;
+			glViewport(0, 0, windowAttrib.width, windowAttrib.height);
+			camera.width = winW;
+			camera.height = winH;
+			
+		}
+
 		glClearColor(0.1f, 0.09f, 0.24f, 1.0f);			// Specify the color of the background
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clean the back buffer and assign the new color to it
 		
 		camera.Inputs(window);								// Poll input events
 
 		camera.updateMatrix(								// update Camera
-			45.0f, 											// FOV,
+			60.0f, 											// FOV,
 			0.1f, 											// nearPlane,
 			100.0f  										// farPlane
 		);
